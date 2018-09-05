@@ -11,7 +11,7 @@
 FROM golang:alpine
 LABEL maintainer="HashiCorp Terraform Team <terraform@hashicorp.com>"
 
-RUN apk add --update git bash openssh make
+RUN apk add --no-cache --update git bash openssh make gcc musl-dev
 
 ENV TF_DEV=true
 ENV TF_RELEASE=1
@@ -21,4 +21,3 @@ COPY . .
 RUN make build && make test
 
 WORKDIR $GOPATH
-ENTRYPOINT ["terraform"]
