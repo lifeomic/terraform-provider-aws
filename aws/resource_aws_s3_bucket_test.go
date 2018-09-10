@@ -1441,6 +1441,11 @@ func testAccCheckAWSS3BucketReplicationRules(n string, providerF func() *schema.
 		rs, _ := s.RootModule().Resources[n]
 		for _, rule := range rules {
 			if dest := rule.Destination; dest != nil {
+				if dest.Account != nil {
+					account_id := s.RootModule().Resources["data.aws_caller_identity.current"].Primary.Attributes["account_id"]
+					dest.Account = aws.String(strings.Replace(*dest.Account, "${data.aws_caller_identity.current.account_id}", account_id, -1))
+				}
+
 				if ec := dest.EncryptionConfiguration; ec != nil {
 					if ec.ReplicaKmsKeyID != nil {
 						key_arn := s.RootModule().Resources["aws_kms_key.replica"].Primary.Attributes["arn"]
