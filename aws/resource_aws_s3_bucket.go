@@ -1718,7 +1718,7 @@ func resourceAwsS3BucketServerSideEncryptionConfigurationUpdate(s3conn *s3.S3, d
 
 	rc.Rules = rules
 	i := &s3.PutBucketEncryptionInput{
-		Bucket:                            aws.String(bucket),
+		Bucket: aws.String(bucket),
 		ServerSideEncryptionConfiguration: rc,
 	}
 	log.Printf("[DEBUG] S3 put bucket replication configuration: %#v", i)
@@ -1837,7 +1837,7 @@ func resourceAwsS3BucketReplicationConfigurationUpdate(s3conn *s3.S3, d *schema.
 
 	rc.Rules = rules
 	i := &s3.PutBucketReplicationInput{
-		Bucket:                   aws.String(bucket),
+		Bucket: aws.String(bucket),
 		ReplicationConfiguration: rc,
 	}
 	log.Printf("[DEBUG] S3 put bucket replication configuration: %#v", i)
